@@ -1,5 +1,5 @@
-prev="r000k00r/00000000/00000000/00000000/00000000/00000000/00000000/00000000"
-curx="x0000xx0/00000000/00000000/00000000/00000000/00000000/00000000/00000000"
+prev="r000k000/00000000/0B000000/0p000000/00000000/0000p000/00000000/00000000"
+curx="b000b000/00000000/00000000/0b000000/00000000/0000w000/00000000/00000000"
 
 novih_praznih_mest = []
 pieces = []
@@ -11,14 +11,19 @@ counter = 1
 for i in range(71):
     if prev[i].isalpha() == True and prev[i]!="/":
         p+=1
-    if curx[i] == "x" and curx[i]!="/":
+    if (curx[i] == "b" and curx[i]!="/") or (curx[i] == "w" and curx[i]!="/"):
         x+=1
     if prev[i]!="0" and curx[i]=="0":
         pieces.append(prev[i])
-    if prev[i]=="0" and curx[i]=="x":
+    if (prev[i] != "0" and curx[i]=="0"):
         novih_praznih_mest.append(i)
 
-    
+
+print(novih_praznih_mest, pieces, p, x)
+
+
+
+
 
 if len(novih_praznih_mest)==1 and len(pieces) == 1 and p == x:
     for i in range(71):
@@ -57,10 +62,18 @@ elif len(novih_praznih_mest)==2:
         elif prev[i] == "/":
             cur+="/"
 
-elif len(novih_praznih_mest) == 1 and len(pieces)==0 and p!=x:
+elif len(novih_praznih_mest) == 1 and p!=x:
 
-    pass
+    for i in range(71):
+        if (prev[i].islower() ==  True and curx[i] == "b") or (prev[i].isupper() ==  True and curx[i] == "w"):
+            cur += prev[i]
+        elif prev[i] != "0" and curx[i] == "0":
+            cur+="0"
+        elif (prev[i].islower() ==  True and curx[i] == "w") or (prev[i].isupper() ==  True and curx[i] == "b"):
+            cur += pieces[0]
+        elif prev[i] == "0" and curx[i] == "0":
+            cur += prev[i]
+        elif prev[i] == "/":
+            cur+="/"
 
 print(cur)
-
-
